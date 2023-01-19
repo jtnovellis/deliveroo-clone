@@ -5,13 +5,29 @@ import {
   MinusCircleIcon as MinusCirculeIconSolid,
   PlusCircleIcon as PlusCirculeIconSolid,
 } from 'react-native-heroicons/solid';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToBasket, removeFromBasket } from '../features/basketSlice';
 
 const DishRow = ({ name, price, short_description, image, _id }) => {
   const [isPressed, setIsPressed] = useState(false);
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.basketReducer);
+
+  const counter = items.filter((item) => item._id === _id).length;
 
   const handlePress = () => {
     setIsPressed((prev) => !prev);
   };
+
+  const handlePlusPress = () => {
+    dispatch(addToBasket({ name, price, short_description, image, _id }));
+  };
+
+  const handleMinusPress = () => {
+    if (!counter > 0) return;
+    dispatch(removeFromBasket({ _id }));
+  };
+
   return (
     <>
       <TouchableOpacity
@@ -41,11 +57,15 @@ const DishRow = ({ name, price, short_description, image, _id }) => {
       {isPressed && (
         <View className='bg-white px-4'>
           <View className='flex-row items-center gap-2 pb-3'>
-            <TouchableOpacity>
-              <MinusCirculeIconSolid color='#00CCBB' size={40} />
+            <TouchableOpacity onPress={handleMinusPress}>
+              <MinusCirculeIconSolid
+                disabled={counter !== 0}
+                color={counter > 0 ? '#00CCBB' : 'gray'}
+                size={40}
+              />
             </TouchableOpacity>
-            <Text>{'0'}</Text>
-            <TouchableOpacity>
+            <Text>{counter}</Text>
+            <TouchableOpacity onPress={handlePlusPress}>
               <PlusCirculeIconSolid color='#00CCBB' size={40} />
             </TouchableOpacity>
           </View>
