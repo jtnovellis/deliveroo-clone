@@ -1,8 +1,8 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import Categories from './Categories';
 import FeaturedRows from './FeaturedRows';
 
-const HomeContent = () => {
+const HomeContent = ({ featuredCategories }) => {
   return (
     <ScrollView
       className='bg-gray-100'
@@ -11,9 +11,13 @@ const HomeContent = () => {
       }}
     >
       <Categories />
-      <FeaturedRows />
-      <FeaturedRows />
-      <FeaturedRows />
+      {featuredCategories.length > 0 ? (
+        featuredCategories.map((featuredCat) => (
+          <FeaturedRows key={featuredCat._id} {...featuredCat} />
+        ))
+      ) : (
+        <Text>No features</Text>
+      )}
     </ScrollView>
   );
 };
