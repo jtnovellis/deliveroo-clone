@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import { useLayoutEffect } from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import Header from '../components/Header';
+import Search from '../components/Search';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -13,8 +13,9 @@ const HomeScreen = () => {
     });
   }, []);
   return (
-    <SafeAreaView>
+    <SafeAreaView className='pt-5 bg-white'>
       <Header />
+      <Search />
     </SafeAreaView>
   );
 };
