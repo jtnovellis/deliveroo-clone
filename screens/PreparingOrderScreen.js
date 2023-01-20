@@ -6,11 +6,13 @@ import * as Progress from 'react-native-progress';
 
 const PreparingOrderScreen = () => {
   const navigation = useNavigation();
+
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Basket');
+      navigation.navigate('Delivery');
     }, 4000);
   }, []);
+
   return (
     <SafeAreaView className='bg-[#00CCBB] flex-1 justify-center items-center'>
       <Animatable.Image

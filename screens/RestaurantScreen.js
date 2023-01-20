@@ -19,8 +19,18 @@ const RestaurantScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { params } = useRoute();
-  const { name, image, rating, type, address, short_description, dishes, _id } =
-    params;
+  const {
+    name,
+    image,
+    rating,
+    type,
+    address,
+    short_description,
+    dishes,
+    _id,
+    lat,
+    long,
+  } = params;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -39,6 +49,8 @@ const RestaurantScreen = () => {
         short_description,
         dishes,
         _id,
+        lat,
+        long,
       })
     );
   }, []);
